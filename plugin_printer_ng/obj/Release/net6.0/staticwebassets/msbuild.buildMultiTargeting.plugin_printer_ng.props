@@ -1,0 +1,3 @@
+﻿<Project>
+  <Import Project="..\build\plugin_printer_ng.props" />
+</Project>

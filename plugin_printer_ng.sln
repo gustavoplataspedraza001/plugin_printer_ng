@@ -1,0 +1,25 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.7.34031.279
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "plugin_printer_ng", "plugin_printer_ng\plugin_printer_ng.csproj", "{D47FF7AE-96FC-40C1-9DB5-55DD7DB4786A}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{D47FF7AE-96FC-40C1-9DB5-55DD7DB4786A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D47FF7AE-96FC-40C1-9DB5-55DD7DB4786A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D47FF7AE-96FC-40C1-9DB5-55DD7DB4786A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D47FF7AE-96FC-40C1-9DB5-55DD7DB4786A}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {942649F8-E267-402E-A064-73B1B73E9285}
+	EndGlobalSection
+EndGlobal

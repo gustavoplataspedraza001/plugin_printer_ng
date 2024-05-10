@@ -1,0 +1,11 @@
+{
+  "Version": 1,
+  "Hash": "cUj2WBu10LXB8HsdHdv5L07HlSHRVGb7biOxDAQVN4U=",
+  "Source": "plugin_printer_ng",
+  "BasePath": "_content/plugin_printer_ng",
+  "Mode": "Default",
+  "ManifestType": "Build",
+  "ReferencedProjectsConfiguration": [],
+  "DiscoveryPatterns": [],
+  "Assets": []
+}
