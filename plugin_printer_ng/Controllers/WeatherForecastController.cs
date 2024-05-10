@@ -30,50 +30,7 @@ namespace plugin_printer_ng.Controllers
         [HttpPost("PrintTicketOrder")]
         public string Get([FromBody] DataTicket data)
         {
-            //POS Printer 203DPI  Series
-            /*
-            string directorioActual = AppDomain.CurrentDomain.BaseDirectory;
-
-            string carpetaAssets = Path.Combine(directorioActual, "assets");
-
-            string nombreImagen = "tw_logo.jpg";
-
-            string rutaImagen = Path.Combine(carpetaAssets, nombreImagen);
-            */
             Printer printer = new Printer("POS Printer 203DPI  Series", "utf-8");
-
-            /*var printer = new SerialPrinter(portName: "POS Printer 203DPI  Series", baudRate: 115200);
-
-            var e = new EPSON();
-            printer.Write( // or, if using and immediate printer, use await printer.WriteAsync
-              ByteSplicer.Combine(
-                e.CenterAlign(),
-               // e.PrintImage(File.ReadAllBytes("images/pd-logo-300.png"), true),
-                e.PrintLine(""),
-                e.PrintLine(""),
-                e.PrintLine("B&H PHOTO & VIDEO"),
-                e.PrintLine("420 NINTH AVE."),
-                e.PrintLine("NEW YORK, NY 10001"),
-                e.PrintLine("(212) 502-6380 - (800)947-9975"),
-                e.PrintLine(""),
-                e.PrintLine(""),
-                e.PrintLine(""),
-                e.PrintLine(""),
-                e.FullCut()
-              )
-            );*/
-            /*if (data.linkImage != "")
-            {
-                System.Net.WebRequest request =
-               System.Net.WebRequest.Create(
-               "http://demotw.ainextgen.mx/assets/dist/image/logoTW.jpg");
-                System.Net.WebResponse response = request.GetResponse();
-                System.IO.Stream responseStream =
-                response.GetResponseStream();
-                Bitmap bitmap2 = new Bitmap(responseStream);
-                printer.NewLines(2);
-                printer.Image(bitmap2);
-            }*/
 
             printer.AlignCenter();
             printer.DoubleWidth3();
@@ -94,7 +51,7 @@ namespace plugin_printer_ng.Controllers
                 {
                     nombreSalsa = ": " + (data.dishes[i].sauces.Length > 1 ? (data.dishes[i].sauces[0].key + "/" + data.dishes[i].sauces[1].key) : data.dishes[i].sauces[0].key);
                 }
-                string resultado = $"{nombrePlato}  {nombreSalsa}";
+                string resultado = $"{nombrePlato}{nombreSalsa}";
                 printer.AlignLeft();
                 printer.DoubleWidth2();
                 printer.Append(resultado);

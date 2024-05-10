@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\plata\\source\\repos\\plugin_printer_ng\\plugin_printer_ng\\plugin_printer_ng.csproj": {}
+    "C:\\Users\\plata\\OneDrive\\Documentos\\GitHub\\plugin_printer_ng\\plugin_printer_ng\\plugin_printer_ng.csproj": {}
   },
   "projects": {
-    "C:\\Users\\plata\\source\\repos\\plugin_printer_ng\\plugin_printer_ng\\plugin_printer_ng.csproj": {
+    "C:\\Users\\plata\\OneDrive\\Documentos\\GitHub\\plugin_printer_ng\\plugin_printer_ng\\plugin_printer_ng.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\plata\\source\\repos\\plugin_printer_ng\\plugin_printer_ng\\plugin_printer_ng.csproj",
+        "projectUniqueName": "C:\\Users\\plata\\OneDrive\\Documentos\\GitHub\\plugin_printer_ng\\plugin_printer_ng\\plugin_printer_ng.csproj",
         "projectName": "plugin_printer_ng",
-        "projectPath": "C:\\Users\\plata\\source\\repos\\plugin_printer_ng\\plugin_printer_ng\\plugin_printer_ng.csproj",
+        "projectPath": "C:\\Users\\plata\\OneDrive\\Documentos\\GitHub\\plugin_printer_ng\\plugin_printer_ng\\plugin_printer_ng.csproj",
         "packagesPath": "C:\\Users\\plata\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\plata\\source\\repos\\plugin_printer_ng\\plugin_printer_ng\\obj\\",
+        "outputPath": "C:\\Users\\plata\\OneDrive\\Documentos\\GitHub\\plugin_printer_ng\\plugin_printer_ng\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "C:\\Users\\plata\\AppData\\Roaming\\NuGet\\NuGet.Config",
