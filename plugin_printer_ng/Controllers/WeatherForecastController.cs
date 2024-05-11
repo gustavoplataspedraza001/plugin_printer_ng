@@ -58,7 +58,7 @@ namespace plugin_printer_ng.Controllers
                 if (data.dishes[i].comments != "")
                 {
                     printer.Append(data.dishes[i].comments);
-                } 
+                }
                 if (i < data.dishes.Length - 1)
                 {
                     printer.NewLine();
@@ -73,7 +73,7 @@ namespace plugin_printer_ng.Controllers
                 printer.Append("___________________ Bebidas ____________________");
                 printer.NewLine();
                 for (var i = 0; i < data.drinks.Length; i++)
-                    {
+                {
 
                     printer.AlignLeft();
                     printer.DoubleWidth2();
@@ -94,7 +94,7 @@ namespace plugin_printer_ng.Controllers
                 printer.Append("_________________ Complementos _________________");
                 printer.NewLine();
                 for (var i = 0; i < data.complements.Length; i++)
-                    {
+                {
                     printer.AlignLeft();
                     printer.DoubleWidth2();
                     printer.Append(data.complements[i].name);
@@ -114,9 +114,19 @@ namespace plugin_printer_ng.Controllers
             printer.Append("________________________________________________");
 
             printer.NewLine();
-            printer.AlignRight();
-            printer.Append(data.total);
+            printer.DoubleWidth2();
             printer.AlignCenter();
+            string valor = padRight("$"+data.total, 5, ' ')
+                                    + padRight("", 10, ' ')
+                + padRight("$" + data.paid, 5, ' ');
+            printer.Append(
+                valor
+                );
+            //printer.Append(data.total);
+            //printer.AlignLeft();
+            //printer.Append(data.paid);
+            printer.AlignCenter();
+            printer.NormalWidth();
             printer.NewLine();
             printer.Append("Orden");
             printer.NewLines(4);
@@ -142,6 +152,7 @@ namespace plugin_printer_ng.Controllers
             printer.AlignCenter();
             printer.Image(bitmap2);
             printer.DoubleWidth2();
+            printer.AlignCenter();
             printer.Append("Sucursal Montemorelos");
             printer.DoubleWidth3();
             printer.NewLine();
@@ -277,6 +288,7 @@ public class DataTicket
     public Drinks[] drinks { get; set; }
     public Drinks[] complements { get; set; }
     public string total { get; set; } = "";
+    public string paid { get; set; } = "";
 
 }
 public class SubDataTicket
