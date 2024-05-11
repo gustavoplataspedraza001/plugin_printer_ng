@@ -116,12 +116,15 @@ namespace plugin_printer_ng.Controllers
             printer.NewLine();
             printer.DoubleWidth2();
             printer.AlignCenter();
-            string valor = padRight("$"+data.total, 5, ' ')
-                                    + padRight("", 10, ' ')
-                + padRight("$" + data.paid, 5, ' ');
-            printer.Append(
-                valor
-                );
+            if (data.table == "Envio")
+            {
+                string valor = padRight("$" + data.total, 5, ' ')
+                                        + padRight("", 10, ' ')
+                    + padRight("$" + data.paid, 5, ' ');
+                printer.Append(
+                    valor
+                    );
+            }
             //printer.Append(data.total);
             //printer.AlignLeft();
             //printer.Append(data.paid);
