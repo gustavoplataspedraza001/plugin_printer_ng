@@ -116,7 +116,7 @@ namespace plugin_printer_ng.Controllers
             printer.NewLine();
             printer.DoubleWidth2();
             printer.AlignCenter();
-            if (data.table == "Envio")
+            if (data.table == "Envio" || data.table == "Pasan")
             {
                 string valor = padRight("$" + data.total, 5, ' ')
                                         + padRight("", 10, ' ')
@@ -124,6 +124,10 @@ namespace plugin_printer_ng.Controllers
                 printer.Append(
                     valor
                     );
+            }
+            else {
+                printer.AlignLeft();
+                printer.Append("$"+data.total);
             }
             //printer.Append(data.total);
             //printer.AlignLeft();
