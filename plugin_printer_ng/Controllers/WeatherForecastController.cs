@@ -116,7 +116,7 @@ namespace plugin_printer_ng.Controllers
             printer.NewLine();
             printer.DoubleWidth2();
             printer.AlignCenter();
-            if (data.table == "Envio" || data.table == "Pasan")
+            if (data.table == "Envio")
             {
                 string valor = padRight("$" + data.total, 5, ' ')
                                         + padRight("", 10, ' ')
@@ -125,9 +125,17 @@ namespace plugin_printer_ng.Controllers
                     valor
                     );
             }
+            else if (data.table == "Pasan") {
+                string valor = padRight("$" + data.total, 5, ' ')
+                                      + padRight("", 10, ' ')
+                  + padRight(data.name, 5, ' ');
+                printer.Append(
+                    valor
+                    );
+            }
             else {
                 printer.AlignLeft();
-                printer.Append("$"+data.total);
+                printer.Append("$" + data.total);
             }
             //printer.Append(data.total);
             //printer.AlignLeft();
@@ -296,6 +304,7 @@ public class DataTicket
     public Drinks[] complements { get; set; }
     public string total { get; set; } = "";
     public string paid { get; set; } = "";
+    public string? name { get; set; } = "";
 
 }
 public class SubDataTicket
