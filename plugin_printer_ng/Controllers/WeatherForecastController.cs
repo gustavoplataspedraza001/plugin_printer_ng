@@ -31,7 +31,6 @@ namespace plugin_printer_ng.Controllers
         public string Get([FromBody] DataTicket data)
         {
             Printer printer = new Printer("POS Printer 203DPI  Series", "utf-8");
-
             printer.AlignCenter();
             printer.DoubleWidth3();
             printer.Append(data.table);
@@ -87,7 +86,6 @@ namespace plugin_printer_ng.Controllers
             }
             if (data.complements.Length > 0)
             {
-
                 printer.AlignCenter();
                 printer.NewLine();
                 printer.NormalWidth();
@@ -105,7 +103,6 @@ namespace plugin_printer_ng.Controllers
                     }
                     //.EstablecerAlineacion(ConectorPluginV3.ALINEACION_DERECHA)
                     //.EscribirTexto(`$${ (this.selectedItem.complements[i].price || 0) }`)
-
                 }
             }
             printer.AlignCenter();
@@ -126,12 +123,14 @@ namespace plugin_printer_ng.Controllers
                     );
             }
             else if (data.table == "Pasan") {
-                string valor = padRight("$" + data.total, 5, ' ')
+                /*string valor = padRight("$" + data.total, 5, ' ')
                                       + padRight("", 10, ' ')
                   + padRight(data.name, 5, ' ');
                 printer.Append(
                     valor
-                    );
+                    );*/
+                printer.AlignLeft();
+                printer.Append(ConcatenateTexts("$"+data.total, data.name));
             }
             else {
                 printer.AlignLeft();
@@ -291,6 +290,23 @@ namespace plugin_printer_ng.Controllers
             string padding = new string(padChar, paddingLength);
 
             return input + padding;
+        }
+
+        public static string ConcatenateTexts(string texto1, string texto2)
+        {
+            // Definimos la longitud total deseada
+            int longitudTotal = 24;
+
+            // Calculamos el espacio necesario para el relleno
+            int espacioParaRelleno = longitudTotal - texto1.Length - texto2.Length;
+
+            // Creamos el relleno con espacios
+            string relleno = new string(' ', espacioParaRelleno);
+
+            // Concatenamos los textos con el relleno en el medio
+            string resultado = texto1 + relleno + texto2;
+
+            return resultado;
         }
     }
 }
