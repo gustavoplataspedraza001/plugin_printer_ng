@@ -155,123 +155,180 @@ namespace plugin_printer_ng.Controllers
         {
             Printer printer = new Printer("POS Printer 203DPI  Series", "utf-8");
 
-        /*System.Net.WebRequest request =
-        System.Net.WebRequest.Create(
-        "http://demotw.ainextgen.mx/assets/dist/image/logoTW.jpg");
-        System.Net.WebResponse response = request.GetResponse();
-        System.IO.Stream responseStream =
-        response.GetResponseStream();*/
-
-        Bitmap bitmap2 = new Bitmap(System.Drawing.Image.FromFile(@"Resources/tp_logo_jpg.jpg"));
-            printer.AlignCenter();
-            printer.Image(bitmap2);
-            printer.DoubleWidth2();
-            printer.AlignCenter();
-            printer.Append("Sucursal Montemorelos");
-            printer.DoubleWidth3();
-            printer.NewLine();
-            printer.AlignCenter();
-            printer.Append("No. Orden " + data.selectedItem.numeroOrden);
-            printer.NewLine();
-
-            printer.NormalWidth();
-            printer.NewLine();
-            printer.AlignCenter();
-
-            printer.Append("Calle General bravo 101 Esq con Simon Bolivar");
-            
-            printer.NewLine();
-            printer.AlignCenter();
-
-            printer.Append("Col del Maestro Montemorelos  CP 67510");
-
-            printer.NewLines(2);
-            printer.AlignCenter();
-
-            printer.Append("Telefonos 8266884281 y 8261273691");
-
-            printer.NewLines(2);
-            printer.AlignCenter();
-
-            printer.Append("Esperamos que haya disfrutado su comida!");
-            printer.NewLines(2);
-
-            printer.AlignCenter();
-            printer.NewLines(3);
-
-            printer.Append("__________________ Productos ___________________");
-            printer.NewLine();
-            for (int i = 0; i < data.response.items.Count; i++)
-            {
+            /*System.Net.WebRequest request =
+            System.Net.WebRequest.Create(
+            "http://demotw.ainextgen.mx/assets/dist/image/logoTW.jpg");
+            System.Net.WebResponse response = request.GetResponse();
+            System.IO.Stream responseStream =
+            response.GetResponseStream();*/
+            try {
+                Bitmap bitmap2 = new Bitmap(System.Drawing.Image.FromFile(@"Resources/tp_logo_jpg.jpg"));
+                printer.AlignCenter();
+                printer.Image(bitmap2);
+                printer.DoubleWidth2();
+                printer.AlignCenter();
+                printer.Append("Sucursal Montemorelos");
+                printer.DoubleWidth3();
                 printer.NewLine();
                 printer.AlignCenter();
-                string valor = padRight(data.response.items[i].quantity.ToString(), 3, ' ') 
-                    + padRight(data.response.items[i].name, 40, ' ')
-                +  padRight("$"+(double.Parse(data.response.items[i].price) * data.response.items[i].quantity).ToString(), 5, ' ');
+                printer.Append("No. Orden " + data.selectedItem.numeroOrden);
+                printer.NewLine();
+
+                printer.NormalWidth();
+                printer.NewLine();
+                printer.AlignCenter();
+
+                printer.Append("Calle General bravo 101 Esq con Simon Bolivar");
+
+                printer.NewLine();
+                printer.AlignCenter();
+
+                printer.Append("Col del Maestro Montemorelos  CP 67510");
+
+                printer.NewLines(2);
+                printer.AlignCenter();
+
+                printer.Append("Telefonos 8266884281 y 8261273691");
+
+                printer.NewLines(2);
+                printer.AlignCenter();
+
+                printer.Append("Esperamos que haya disfrutado su comida!");
+                printer.NewLines(2);
+
+                printer.AlignCenter();
+                printer.NewLines(3);
+
+                printer.Append("__________________ Productos ___________________");
+                printer.NewLine();
+                for (int i = 0; i < data.response.items.Count; i++)
+                {
+                    printer.NewLine();
+                    printer.AlignCenter();
+                    string valor = padRight(data.response.items[i].quantity.ToString(), 3, ' ')
+                        + padRight(data.response.items[i].name, 40, ' ')
+                    + padRight("$" + (double.Parse(data.response.items[i].price) * data.response.items[i].quantity).ToString(), 5, ' ');
+                    printer.Append(valor);
+                }
+
+                printer.AlignCenter();
+                printer.NewLine();
+                printer.Append("________________________________________________");
+                printer.NewLines(2);
+                printer.AlignCenter();
+                if (data.selectedItem.table == "Envio")
+                {
+                    double totalPago = (data.totalAPagar + 40);
+                    printer.NewLine();
+                    printer.AlignRight();
+                    printer.Append("Envío: $40");
+                    printer.NewLine();
+                    printer.AlignRight();
+                    printer.Append("Total: $" + totalPago);
+                    printer.NewLine();
+                    printer.AlignRight();
+                    printer.Append("Efectivo: $" + data.pagoCliente);
+                    printer.NewLine();
+                    printer.AlignRight();
+                    printer.Append("Cambio: $" + ((data.pagoCliente - totalPago) == -40 ? 0 : (data.pagoCliente - totalPago)));
+                }
+                else
+                {
+                    printer.NewLine();
+                    printer.AlignRight();
+                    printer.Append("Total: $" + data.totalAPagar);
+                    printer.NewLine();
+                    printer.AlignRight();
+                    printer.Append("Efectivo: $" + data.pagoCliente);
+                    printer.NewLine();
+                    printer.AlignRight();
+                    printer.Append("Cambio: $" + data.cambio);
+
+                }
+
+                if (data.customer.name != "")
+                {
+
+                    printer.NewLine();
+                    printer.AlignLeft();
+                    printer.Append("Nombre: " + data.customer.name);
+                    printer.NewLine();
+                    printer.AlignLeft();
+                    printer.Append("Telefono: " + data.customer.phone);
+                    printer.NewLine();
+                    if (data.customer.address != "")
+                    {
+
+                        printer.AlignLeft();
+                        printer.Append("Direccion: " + data.customer.address);
+                        printer.NewLine();
+                        printer.AlignLeft();
+                        printer.Append("Referencia: " + data.customer.reference);
+                    }
+                }
+                printer.NewLine();
+                printer.AlignLeft();
+                printer.Append("Al " + data.response.fecha);
+                printer.AlignCenter();
+                printer.NewLine();
+                printer.Append("Gracias por tu Visita!");
+                printer.NewLine();
+                printer.NewLine();
+                printer.NewLine();
+                printer.FullPaperCut();
+                printer.OpenDrawer();
+                printer.PrintDocument();
+                return "";
+            }
+            catch (Exception ex) { return ex.Message; }
+        
+        }
+
+        [HttpPost("PrintTicketCorte")]
+        public string printCut([FromBody] CorteDto data)
+        {
+            Printer printer = new Printer("POS Printer 203DPI  Series", "utf-8");
+
+            /*System.Net.WebRequest request =
+            System.Net.WebRequest.Create(
+            "http://demotw.ainextgen.mx/assets/dist/image/logoTW.jpg");
+            System.Net.WebResponse response = request.GetResponse();
+            System.IO.Stream responseStream =
+            response.GetResponseStream();*/
+
+            //Bitmap bitmap2 = new Bitmap(System.Drawing.Image.FromFile(@"Resources/tp_logo_jpg.jpg"));
+            printer.DoubleWidth2();
+            printer.AlignCenter();
+            printer.Append("Corte");
+            printer.NewLine();
+            printer.NewLine();
+            printer.NormalWidth();
+            
+
+            printer.Append("____________________ Fondo _____________________");
+            printer.NewLine();
+            for (int i = 0; i < data.inicial.Length; i++)
+            {
+                printer.AlignCenter();
+                string valor = padRight(data.inicial[i].cajero, 20, ' ')
+                    + padRight(data.inicial[i].fecha, 20, ' ')
+                + padRight("$" + data.inicial[i].montoInicial.ToString(), 8, ' ');
                 printer.Append(valor);
             }
 
-            printer.AlignCenter();
-            printer.NewLine();
-            printer.Append("________________________________________________");
-            printer.NewLines(2);
-            printer.AlignCenter();
-            if (data.selectedItem.table == "Envio")
-            {
-                double totalPago = (data.totalAPagar + 40);
-                printer.NewLine();
-                printer.AlignRight();
-                printer.Append("Envío: $40");
-                printer.NewLine();
-                printer.AlignRight();
-                printer.Append("Total: $"+ totalPago);
-                printer.NewLine();
-                printer.AlignRight();
-                printer.Append("Efectivo: $"+ data.pagoCliente);
-                printer.NewLine();
-                printer.AlignRight();
-                printer.Append("Cambio: $"+ ((data.pagoCliente - totalPago) == -40 ? 0 : (data.pagoCliente - totalPago)));
-            }
-            else
-            {
-                printer.NewLine();
-                printer.AlignRight();
-                printer.Append("Total: $" + data.totalAPagar);
-                printer.NewLine();
-                printer.AlignRight();
-                printer.Append("Efectivo: $" + data.pagoCliente);
-                printer.NewLine();
-                printer.AlignRight();
-                printer.Append("Cambio: $" + data.cambio);
 
+            printer.NewLine();
+            printer.Append("____________________ Total _____________________");
+            printer.NewLine();
+            for (int i = 0; i < data.totales.Length; i++)
+            {
+                printer.AlignCenter();
+                string valor = padRight(data.totales[i].wayToPay, 20, ' ')
+                    + padRight(data.totales[i].orderCount.ToString(), 20, ' ')
+                + padRight("$" + data.totales[i].totalPayment, 8, ' ');
+                printer.Append(valor);
             }
 
-            if (data.customer.name != "")
-            {
-
-                printer.NewLine();
-                printer.AlignLeft();
-                printer.Append("Nombre: " + data.customer.name);
-                printer.NewLine();
-                printer.AlignLeft();
-                printer.Append("Telefono: " + data.customer.phone);
-                printer.NewLine();
-                if (data.customer.address !="") {
-
-                    printer.AlignLeft();
-                    printer.Append("Direccion: " + data.customer.address);
-                    printer.NewLine();
-                    printer.AlignLeft();
-                    printer.Append("Referencia: " + data.customer.reference); 
-                }
-            }
-            printer.NewLine();
-            printer.AlignLeft();
-            printer.Append("Al " + data.response.fecha);
-            printer.AlignCenter();
-            printer.NewLine();
-            printer.Append("Gracias por tu Visita!");
-            printer.NewLine();
             printer.NewLine();
             printer.NewLine();
             printer.FullPaperCut();
@@ -279,6 +336,93 @@ namespace plugin_printer_ng.Controllers
             printer.PrintDocument();
             return "";
         }
+
+        [HttpPost("PrintTicketNg")]
+        public IActionResult PrintTicket([FromBody] PrintTicketData data)
+        {
+            try {
+            Printer printer = new Printer(data.printer, "utf-8");
+            foreach (Actions action in data.actions)
+            {
+                switch (action.action)
+                {
+                    case "alignment":
+                        if (action.description== "left")
+                        {
+                            printer.AlignLeft();
+                        }
+                        if (action.description == "right")
+                        {
+                            printer.AlignRight();
+                        }
+                        if (action.description == "center")
+                        {
+                            printer.AlignCenter();
+                        }
+                        break;
+                    case "size":
+                        if (action.description =="normal")
+                        {
+                            printer.NormalWidth();
+                        }
+                        if (action.description == "medium")
+                        {
+                            printer.DoubleWidth2();
+                        }
+                        if (action.description == "big")
+                        {
+                            printer.DoubleWidth3();
+                        }
+                        break;
+                    case "append":
+                        printer.Append(action.description);
+                        break;
+                    case "line":
+                        printer.NewLine();
+                        break;
+                    case "image":
+                        System.Net.WebRequest request =
+                        System.Net.WebRequest.Create(action.description);
+                        System.Net.WebResponse response = request.GetResponse();
+                        System.IO.Stream responseStream =
+                        response.GetResponseStream();
+                        Bitmap bitmap2 = new Bitmap(responseStream);
+                        printer.Image(bitmap2);
+                        //"http://demotw.ainextgen.mx/assets/dist/image/logoTW.jpg"
+                        break;
+
+                }
+            }
+            printer.FullPaperCut();
+            printer.OpenDrawer();
+            printer.PrintDocument();
+
+            var respuesta = new
+            {
+                statusCode = "201",
+                success = true,
+                message = "Impreso correctamente",
+                response = "creado"
+            };
+            return new JsonResult(respuesta) { StatusCode = 201 };
+        }
+            catch (Exception ex) {
+
+                var res = new
+                {
+                    statusCode = "400",
+                    success = false,
+                    message = "Error",
+                    response = ex.Message
+                };
+                return new JsonResult(res) { StatusCode = 400 };
+    }
+}
+
+
+
+
+
         private static string padRight(string input, int length, char padChar = ' ')
         {
             if (input.Length >= length)
@@ -339,9 +483,7 @@ public class Drinks
 {
     public string name { get; set; }
 }
-
 ////
-
 public class ItemDto
 {
     public string name { get; set; }
@@ -406,4 +548,32 @@ public class RootDto
     public double totalAPagar { get; set; }
     public double? pagoCliente { get; set; } = 0;
     public double cambio { get; set; }
+}
+
+
+public class CorteDto {
+    public Totals[] totales { get; set; }
+    public Inicial[] inicial{ get; set; }
+}
+
+public class Totals{ 
+    public int totalPayment { get; set; }
+    public int orderCount {  get; set; }
+    public string wayToPay { get; set; }
+}
+public class Inicial{
+    public string fecha { get; set; }
+    public decimal montoInicial { get; set; }
+    public string cajero { get; set; }
+
+}
+
+public class PrintTicketData {
+    public string printer { get; set; }
+    public Actions[] actions { get; set; }
+}
+
+public class Actions {
+    public string action { get; set; }
+    public string description { get; set; }
 }
